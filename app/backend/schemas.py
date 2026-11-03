@@ -15,3 +15,10 @@ class ProductCard(BaseModel):
     specs: dict[str, NotEmptyStr]
     search_queries: list[NotEmptyStr] = Field(min_length=3, max_length=5)
     commercial: NotEmptyStr
+    missing_or_unclear_fields: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Список характеристик или полей, которые отсутствуют во входных данных "
+            "или требуют уточнения. Если данных достаточно - пустой список []."
+        ),
+    )
