@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card Shaper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Product Card Shaper</h1>
+            <p class="subtitle">Загрузите JSON-файл для обработки</p>
+        </header>
+
+        <main class="card">
+            <!-- Зона Drag & Drop -->
+            <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Загрузить JSON файл">
+                <input type="file" id="fileInput" accept=".json,application/json" class="file-input">
+                
+                <div class="drop-zone-content" id="dropZonePrompt">
+                    <div class="upload-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <div class="drop-zone-text">
+                        Перетащите JSON-файл сюда или <span class="browse-link">выберите на устройстве</span>
+                    </div>
+                    <div class="drop-zone-hint">Формат .json</div>
+                </div>
+
+                <!-- Информация о выбранном файле -->
+                <div class="file-preview hidden" id="filePreview">
+                    <div class="file-info-row">
+                        <div class="file-badge-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                            </svg>
+                        </div>
+                        <div class="file-details">
+                            <span class="file-name" id="fileName"></span>
+                            <span class="file-size" id="fileSize"></span>
+                        </div>
+                        <button type="button" class="btn-remove" id="btnRemoveFile" title="Удалить файл" aria-label="Удалить файл">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вывод ошибки над кнопкой -->
+            <div class="error-box hidden" id="errorBox" role="alert">
+                <svg class="error-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <span class="error-text" id="errorText"></span>
+            </div>
+
+            <!-- Кнопка отправки -->
+            <button type="button" class="btn-submit" id="btnSubmit" disabled>
+                <span class="spinner hidden" id="submitSpinner"></span>
+                <span id="btnSubmitText">Отправить</span>
+            </button>
+
+            <!-- Блок ответа сервера -->
+            <div class="response-section hidden" id="responseSection">
+                <div class="response-header">
+                    <span class="response-title">Ответ сервера</span>
+                    <button type="button" class="btn-copy" id="btnCopyResponse">
+                        <svg id="iconCopy" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        <svg id="iconCheck" class="hidden" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        <span id="copyButtonText">Копировать</span>
+                    </button>
+                </div>
+                <div class="code-container">
+                    <pre><code id="responseCodeOutput"></code></pre>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
