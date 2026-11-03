@@ -141,7 +141,7 @@ btnSubmit.addEventListener('click', async () => {
         const formData = new FormData();
         formData.append('file', currentFile, currentFile.name);
 
-        const response = await fetch(API_URL, {
+        const response = await fetch(`${API_URL}/upload`, {
             method: 'POST',
             body: formData
         });
