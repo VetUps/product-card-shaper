@@ -18,4 +18,5 @@ app.add_middleware(
 
 @app.post('/upload')
 async def upload_json(file: UploadFile):
-    pass
+    validator = ProductJSONValidator()
+    product = await validator.validate(file)
