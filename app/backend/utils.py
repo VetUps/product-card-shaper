@@ -11,6 +11,9 @@ class JSONValidator:
         self.allowed_mimetypes = allowed_mimetypes or self.DEFAULT_ALLOWED_MIMETYPE
 
     def validate_mimetype(self, file: UploadFile) -> None:
+        """
+        Валидирует MIME тип файла
+        """
         if file.content_type not in self.allowed_mimetypes:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -19,6 +22,9 @@ class JSONValidator:
 
 class ProductJSONValidator(JSONValidator):
     async def validate_by_schema(self, file: UploadFile) -> Product:
+        """
+        Валидирует JSON по Pydantic схеме
+        """
         try:
             bytes_content = await file.read()
 
@@ -36,6 +42,9 @@ class ProductJSONValidator(JSONValidator):
             )
 
     async def validate(self, file: UploadFile) -> Product:
+        """
+        Запускает все валидации
+        """
         self.validate_mimetype(file)
         product = await self.validate_by_schema(file)
 

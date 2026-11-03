@@ -20,6 +20,9 @@ class LLMService:
         self.model = model
 
     async def shape_product_card(self, prodcut: Product) -> ProductCard:
+        """
+        Делает запрос к LLM с заданным системным промптом и характеристиками товара
+        """
         try:
             response = await self.client.beta.chat.completions.create(
                 model=self.model,
