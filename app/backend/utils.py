@@ -2,7 +2,7 @@ from fastapi import UploadFile, HTTPException, status
 from pydantic import ValidationError
 import json
 
-from app.backend.schemas import Product
+from schemas import Product
 
 class JSONValidator:
     DEFAULT_ALLOWED_MIMETYPE = ['application/json']
@@ -34,4 +34,10 @@ class ProductJSONValidator(JSONValidator):
                 status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
                 detail='Ошибка валидации полей, проверьте структуру JSON-файла'
             )
-        
+
+    async def validate(self, file: UploadFile) -> Product:
+        self.validate_mimetype(file)
+        product = await self.validate_by_schema(file)
+
+        return product
+    

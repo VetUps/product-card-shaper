@@ -1,6 +1,8 @@
 from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
+from utils import ProductJSONValidator
+
 app = FastAPI()
 
 origins = [
