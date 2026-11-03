@@ -5,7 +5,7 @@ import json
 
 from schemas import Product, ProductCard
 
-PROMPT_PATH = Path(__file__).parent / "system_prompt.md"
+PROMPT_PATH = Path(__file__).parent / "SYSTEM_PROMPT.md"
 BASE_PROMPT = PROMPT_PATH.read_text(encoding="utf-8").strip()
 
 SCHEMA_JSON = json.dumps(ProductCard.model_json_schema(), ensure_ascii=False, indent=2)
